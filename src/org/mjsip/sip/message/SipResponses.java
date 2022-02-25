@@ -38,7 +38,7 @@ public class SipResponses {
 		switch (code) {
 			// 1xx Provisional
 			case 100 : return "Trying";
-			case 180 : return "Ringing";
+			case 180 : return "Zvonim";
 			case 181 : return "Call Is Being Forwarded";
 			case 182 : return "Queued";
 			case 183 : return "Session Progress";
@@ -95,7 +95,7 @@ public class SipResponses {
 			case 483 : return "Too Many Hops";
 			case 484 : return "Address Incomplete";
 			case 485 : return "Ambiguous";
-			case 486 : return "Busy Here";
+			case 486 : return "Obsadene";
 			case 487 : return "Request Terminated";
 			case 488 : return "Not Acceptable Here";
 			case 489 : return "Bad Event";
@@ -115,7 +115,7 @@ public class SipResponses {
 
 			// 6xx Global Failures
 			case 600 : return "Busy Everywhere";
-			case 603 : return "Decline";
+			case 603 : return "Zrusene";
 			case 604 : return "Does Not Exist Anywhere";
 			case 606 : return "Not Acceptable";
 		}

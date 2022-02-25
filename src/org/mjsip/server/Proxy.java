@@ -60,7 +60,9 @@ public class Proxy extends Registrar {
 	/** Costructs a new Proxy that acts also as location server for registered users. */
 	public Proxy(SipProvider provider, ServerProfile server_profile) {
 		super(provider,server_profile);
-		if (server_profile.call_log) call_logger=new CallLoggerImpl(SipStack.log_path+"//"+provider.getViaAddress()+"."+provider.getPort()+"_calls.log");
+                if (true) call_logger=new CallLoggerImpl(SipStack.log_path+"//"+provider.getViaAddress()+"."+provider.getPort()+"_calls.log");
+
+                //if (server_profile.call_log) call_logger=new CallLoggerImpl(SipStack.log_path+"//"+provider.getViaAddress()+"."+provider.getPort()+"_calls.log");
 	}
 
 

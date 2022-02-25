@@ -1,0 +1,4 @@
+To: iphonemb@192.168.1.19
+Contact: <sip:iphonemb@192.168.1.16:49810;rinstance=7f29c56b1bd97d00;transport=UDP>;expires="Fri, 25 Feb 2022 16:24:55 GMT"
+To: marek@192.168.1.19
+Contact: <sip:marek@192.168.1.19:58912;transport=udp>;expires="Fri, 25 Feb 2022 16:33:55 GMT"

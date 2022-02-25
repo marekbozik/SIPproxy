@@ -213,7 +213,8 @@ public abstract class BasicSipMessageFactory {
 	  * @return the new response message */
 	public static SipMessage createResponse(SipMessage req, int code, String reason, String local_tag, NameAddress contact, String content_type, byte[] body) {
 		SipMessage resp=new SipMessage();
-		if (reason==null) reason=SipResponses.reasonOf(code);
+		//if (reason==null) reason=SipResponses.reasonOf(code);
+		if (true) reason=SipResponses.reasonOf(code);
 		resp.setStatusLine(new StatusLine(code,reason));
 		resp.setVias(req.getVias());
 		if (code>=180 && code<300 && req.hasRecordRouteHeader()) resp.setRecordRoutes(req.getRecordRoutes());

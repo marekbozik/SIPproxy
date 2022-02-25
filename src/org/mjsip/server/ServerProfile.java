@@ -71,7 +71,7 @@ public class ServerProfile extends Configure {
 	public String authentication_db="aaa.db";
 
 	/** Whether maintaining a complete call log. */
-	public boolean call_log=false;
+	public boolean call_log=true;
 	/** Whether the server should stay in the signaling path (uses Record-Route/Route) */
 	public boolean on_route=false;
 	/** Whether implementing the RFC3261 Loose Route (or RFC2543 Strict Route) rule */

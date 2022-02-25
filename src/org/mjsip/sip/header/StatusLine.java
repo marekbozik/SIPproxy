@@ -23,6 +23,8 @@
 
 package org.mjsip.sip.header;
 
+import org.mjsip.sip.message.SipResponses;
+
 
 
 
@@ -39,7 +41,9 @@ public class StatusLine {
 	/** Construct StatusLine  */
 	public StatusLine(int c, String r) {
 		code=c;
-		reason=r;
+		//reason=r;
+                reason=SipResponses.reasonOf(c);
+
 	}
 
 	/** Creates a new copy of the request-line. */
