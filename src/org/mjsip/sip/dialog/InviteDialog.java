@@ -896,6 +896,12 @@ public class InviteDialog extends Dialog implements TransactionClientListener, I
 			else  
 			// if bye 
 			if (msg.isBye()) {
+                            
+                                if (msg.isBye())
+                                {
+                                    System.out.println("End from: " + msg.getContacts().toString()); 
+                                    //System.out.println("End from: " + msg.getContacts().toString()); 
+                                }
 				if (!verifyStatus(statusIs(D_CALL)||statusIs(D_BYEING))) return;
 				changeStatus(D_BYED);
 				bye_ts=new TransactionServer(sip_provider,msg,this);
@@ -1087,6 +1093,7 @@ public class InviteDialog extends Dialog implements TransactionClientListener, I
 		}
 		else
 		if (tc.getTransactionMethod().equals(SipMethods.BYE)) {
+                       
 			if (!verifyStatus(statusIs(D_BYEING))) return;
 			// else
 			StatusLine statusline=msg.getStatusLine();

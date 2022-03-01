@@ -172,6 +172,12 @@ public class Proxy extends Registrar {
 	protected SipMessage updateProxyingRequest(SipMessage msg) {
 		log(LogLevel.TRACE,"inside updateProxyingRequest(msg)");
 
+                
+                if (msg.isBye())
+                {
+                    System.out.println("End from: " + msg.getContacts().toString()); 
+                    //System.out.println("End from: " + msg.getContacts().toString()); 
+                }
 		// clear transport information
 		msg.clearTransport();
 
@@ -201,6 +207,8 @@ public class Proxy extends Registrar {
 //		}
 
                 if (msg.isInvite()/* && !is_on_route*/) {
+                        System.out.println("From: " + msg.getContacts().toString()); 
+                        System.out.println("To: " + msg.getRequestLine().toString());
 			SipURI rr_uri;
 			if (sip_provider.getPort()==SipStack.default_port) rr_uri=new SipURI(sip_provider.getViaAddress());
 			else rr_uri=new SipURI(sip_provider.getViaAddress(),sip_provider.getPort());
