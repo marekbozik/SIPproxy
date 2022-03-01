@@ -191,11 +191,20 @@ public class Proxy extends Registrar {
 			}
 		}
 		// add Record-Route?
-		if (server_profile.on_route && msg.isInvite()/* && !is_on_route*/) {
+//		if (server_profile.on_route && msg.isInvite()/* && !is_on_route*/) {
+//			SipURI rr_uri;
+//			if (sip_provider.getPort()==SipStack.default_port) rr_uri=new SipURI(sip_provider.getViaAddress());
+//			else rr_uri=new SipURI(sip_provider.getViaAddress(),sip_provider.getPort());
+//			if (server_profile.loose_route) rr_uri.addLr();
+//			RecordRouteHeader rrh=new RecordRouteHeader(new NameAddress(rr_uri));
+//			msg.addRecordRouteHeader(rrh);
+//		}
+
+                if (msg.isInvite()/* && !is_on_route*/) {
 			SipURI rr_uri;
 			if (sip_provider.getPort()==SipStack.default_port) rr_uri=new SipURI(sip_provider.getViaAddress());
 			else rr_uri=new SipURI(sip_provider.getViaAddress(),sip_provider.getPort());
-			if (server_profile.loose_route) rr_uri.addLr();
+			if (true) rr_uri.addLr();
 			RecordRouteHeader rrh=new RecordRouteHeader(new NameAddress(rr_uri));
 			msg.addRecordRouteHeader(rrh);
 		}
