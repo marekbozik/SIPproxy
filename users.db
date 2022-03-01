@@ -1,4 +1,11 @@
+To: xr@192.168.1.19
+Contact: <sip:xr@192.168.1.13:49554;rinstance=765701013fc123f5;transport=UDP>;expires="Tue, 01 Mar 2022 19:12:36 GMT"
 To: iphonemb@192.168.1.19
-Contact: <sip:iphonemb@192.168.1.16:49810;rinstance=7f29c56b1bd97d00;transport=UDP>;expires="Fri, 25 Feb 2022 16:24:55 GMT"
+Contact: <sip:iphonemb@192.168.1.16:64555;rinstance=a260ebab79020bcc;transport=UDP>;expires="Tue, 01 Mar 2022 19:12:22 GMT"
+To: erikpc@192.168.1.19
+Contact: <sip:erikpc@192.168.1.21:57599;transport=udp>;expires="Tue, 01 Mar 2022 19:15:29 GMT"
+To: marek-iphone7@192.168.1.19
 To: marek@192.168.1.19
-Contact: <sip:marek@192.168.1.19:58912;transport=udp>;expires="Fri, 25 Feb 2022 16:33:55 GMT"
+Contact: <sip:marek@192.168.1.19:51719;transport=udp>;expires="Tue, 01 Mar 2022 19:15:09 GMT"
+Contact: <sip:marek@192.168.1.19:55976;transport=udp>;expires="Tue, 01 Mar 2022 19:07:39 GMT"
+To: erik-iphoneXR@192.168.1.19

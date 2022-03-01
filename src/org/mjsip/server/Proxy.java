@@ -23,8 +23,14 @@ package org.mjsip.server;
 
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.InputStreamReader;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Vector;
+import java.util.concurrent.TimeUnit;
 
 import org.mjsip.sip.address.GenericURI;
 import org.mjsip.sip.address.NameAddress;
@@ -51,7 +57,9 @@ public class Proxy extends Registrar {
 	
 	/** Log of processed calls */
 	CallLogger call_logger;
-
+        public  ArrayList cloger;
+        public Date start;
+        public Date end;
 
 	/** Costructs a void Proxy */
 	protected Proxy() {}
@@ -61,6 +69,7 @@ public class Proxy extends Registrar {
 	public Proxy(SipProvider provider, ServerProfile server_profile) {
 		super(provider,server_profile);
                 if (true) call_logger=new CallLoggerImpl(SipStack.log_path+"//"+provider.getViaAddress()+"."+provider.getPort()+"_calls.log");
+                cloger = new ArrayList();
 
                 //if (server_profile.call_log) call_logger=new CallLoggerImpl(SipStack.log_path+"//"+provider.getViaAddress()+"."+provider.getPort()+"_calls.log");
 	}
@@ -166,6 +175,7 @@ public class Proxy extends Registrar {
 		sip_provider.sendMessage(msg);
 	}
 
+        //public static ArrayList<String[]> cloger = new ArrayList<String[]>();
 	
 	/** Processes the Proxy headers of the request.
 	  * Such headers are: Via, Record-Route, Route, Max-Forwards, etc. */
@@ -173,11 +183,74 @@ public class Proxy extends Registrar {
 		log(LogLevel.TRACE,"inside updateProxyingRequest(msg)");
 
                 
+                if (msg.isInvite()/* && !is_on_route*/) {
+                     
+                        try
+                        {
+                            System.out.println("From: " + msg.getContacts().toString());
+                            var x = msg.getContacts().toString().split("\\s+")[1].split(";")[0].split(":");
+                            System.out.println(x[1] + ":" + x[2]); 
+                            String l [] = new String[2];
+                            l[0] = (x[1] + ":" + x[2]);
+                            
+                            //cloger.add((String[]) l.toArray());
+                            
+                            System.out.println("To: " + msg.getRequestLine().toString());
+                            var y = msg.getRequestLine().toString().split("\\s+")[1].split(";")[0].split(":");//.split(";")[0].split(":");
+                            System.out.println(y[1] + ":" + y[2]); 
+                            l[1] = (y[1] + ":" + y[2]);
+                            
+                            cloger.add(l[0]);
+                            cloger.add(l[1]);
+
+                            start = Date.from(Instant.now());
+
+                        }
+                        catch (Exception e)
+                        {
+                            System.out.println("chyba");
+                        }
+                       // System.out.println("From: " + msg.getContacts().toString()); 
+                        //System.out.println("To: " + msg.getRequestLine().toString());
+                }
+                
                 if (msg.isBye())
                 {
                     System.out.println("End from: " + msg.getContacts().toString()); 
+                    var x = msg.getContacts().toString().split("\\s+")[1].split(";")[0].split(":");
+                    System.out.println(x[1] + ":" + x[2].split(">")[0]); 
+                    String f = x[1] + ":" + x[2].split(">")[0];
+                    for (int i = 0; i < cloger.size(); i++) {
+                        System.out.println("\t" + cloger.get(i));
+                        if(f.equals(cloger.get(i)))
+                        {
+                            end = Date.from(Instant.now());
+                            try
+                            {
+                                long q = end.getTime() - start.getTime();
+                                
+                                System.out.println(Date.from(Instant.now()).toString() + " call from: " + cloger.get(0) + " to: " + cloger.get(1) + " ended by: " + f + " total time: " + TimeUnit.MILLISECONDS.toSeconds(q) + "s");
+                                
+                                String w = Date.from(Instant.now()).toString() + " call from: " + cloger.get(0) + " to: " + cloger.get(1) + " ended by: " + f + " total time: " + TimeUnit.MILLISECONDS.toSeconds(q) + "s" + " started at: " + start;
+                                FileWriter fw = new FileWriter("customLog.log", true);
+                                BufferedWriter bw = new BufferedWriter(fw);
+                                bw.write(w);
+                                bw.newLine();
+                                bw.close();
+                                
+                                cloger.clear();
+                            }
+                            catch (Exception e)
+                            {
+                                System.out.println("chyba");
+
+                            }
+                            break;
+                        }
+                    }
                     //System.out.println("End from: " + msg.getContacts().toString()); 
                 }
+                
 		// clear transport information
 		msg.clearTransport();
 
@@ -207,8 +280,6 @@ public class Proxy extends Registrar {
 //		}
 
                 if (msg.isInvite()/* && !is_on_route*/) {
-                        System.out.println("From: " + msg.getContacts().toString()); 
-                        System.out.println("To: " + msg.getRequestLine().toString());
 			SipURI rr_uri;
 			if (sip_provider.getPort()==SipStack.default_port) rr_uri=new SipURI(sip_provider.getViaAddress());
 			else rr_uri=new SipURI(sip_provider.getViaAddress(),sip_provider.getPort());
